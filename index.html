@@ -102,25 +102,7 @@
                             <div id="Applicant_1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="Applicant_tab_1">
                                 <br>
                                 <div id="divShow_1">
-                                    <!-- <div id="divOwner1" class="form-group row">
-                                        <div class="col-md-6 col-md-6 col-lg-6 pl pr">
-                                            <label class="col-form-label">Document Owner<span style="color:red;">*</span></label>
-                                            <select class="form-control" id="ddlDocOwner1" onchange="onChangeOwner(1)">
-                                                <option value="0">---Select---</option>
-                                                <option value="1">Main Applicant</option>
-                                                <option value="2">Spouse</option>
-                                                <option value="3">Child 1</option>
-                                                <option value="4">Child 2</option>
-                                                <option value="5">Child 3</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 col-md-6 col-lg-6 pl pr">
-                                            <label class="col-form-label">VAC</label>
-                                            <select class="form-control" id="ddlVAC1">
-                                                <option value="1">Colombo</option>
-                                            </select>
-                                        </div>
-                                    </div> -->
+                                    
                                     <div class="form-group row">
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label" >Surname (as in the national ID)<span style="color:red;">*</span></label>
@@ -1024,7 +1006,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         }
         
     }
-    codetxt +="})();";
+    codetxt +="$('#btnCon').prop('disabled', false);})();";
     //copy data
     copyToClipboard(codetxt);
 
