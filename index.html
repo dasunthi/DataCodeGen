@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+    <title>Applicant Registration Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -75,10 +75,18 @@
         <div class="popup-form form-border">
             <h3 class="mb-4 text-center">Applicant Registration Form</h3>
 
+            <div id="generalErrorMessage" class="alert alert-danger" style="display:none;" role="alert">
+                Please fill in all required fields.
+            </div>
+            
             <div id="tblRes">
                 <span id="finalMsg"></span>
             </div>
-
+            <div id="submissionResults" class="mt-3">
+                <!-- <h5>Submission Successful! Here's the data you entered:</h5> -->
+                <pre id="formDataDisplay"></pre>
+                <button type="button" id="resetFormDisplay" class="btn btn-secondary mt-3 " onclick="resetFormDisplay()" style="display: none;">Register Another Applicant</button>
+            </div>
             <div class="popup-cont-form fullform" id="divMain">
                 <form id="registrationForm" autocomplete="off" method="post" name="registrationForm">
 
@@ -115,32 +123,32 @@
                                     </div> -->
                                     <div class="form-group row">
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
-                                            <label class="col-form-label">Surname (as in the national ID)<span style="color:red;">*</span></label>
-                                            <input type="text" id="txtFirstName1" class="form-control">
+                                            <label class="col-form-label" >Surname (as in the national ID)<span style="color:red;">*</span></label>
+                                            <input type="text" id="txtFirstName1" class="form-control" required>
                                         </div>
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Other Names (as in the national ID)<span style="color:red;">*</span></label>
-                                            <input type="text" id="txtLastName1" class="form-control">
+                                            <input type="text" id="txtLastName1" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Date Of Birth<span style="color:red;">*</span></label>
-                                            <input type="text" class="form-control datepicker_start1" style="width: 150px;" id="txtDOB1" onkeydown="return false">
+                                            <input type="text" class="form-control datepicker_start1" style="width: 150px;" id="txtDOB1" required  >
                                         </div>
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Passport No<span style="color:red;">*</span></label>
-                                            <input type="text" id="txtPassportNo1" class="form-control">
+                                            <input type="text" id="txtPassportNo1" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Passport Expiry Date<span style="color:red;">*</span></label>
-                                            <input type="text" class="form-control datepicker1" style="width: 150px;" id="txtDOE1" onkeydown="return false">
+                                            <input type="text" class="form-control datepicker1" style="width: 150px;" id="txtDOE1" required>
                                         </div>
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Gender<span style="color:red;">*</span></label>
-                                            <select class="form-control" id="ddlGender1">
+                                            <select class="form-control" id="ddlGender1" required >
                                                 <option value="0">--- Select ---</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -151,7 +159,8 @@
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Nationality<span style="color:red;">*</span></label>
                                             <select class="form-control" id="ddlNationality1">
-                                                <option value="0">---Select---</option>
+                                                <option value="200">Sri Lankan</option>
+                                                <!--
                                                 <option value="1">Afghans</option>
                                                 <option value="2">Alanders</option>
                                                 <option value="238">Algerian</option>
@@ -390,22 +399,22 @@
                                                 <option value="233">Virgin Islander</option>
                                                 <option value="235">Yemeni</option>
                                                 <option value="236">Zambian</option>
-                                                <option value="237">Zimbabwean</option>
+                                                <option value="237">Zimbabwean</option>-->
                                             </select>
                                         </div>
-                                        <div class="col-md-6 col-md-6 col-lg-6 pl pr">
+                                        <!-- <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Email Id<span style="color:red;">*</span></label>
                                             <input type="text" id="txtEmail1" class="form-control">
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Primary Phone<span style="color:red;">*</span></label>
-                                            <input type="text" id="txtContactNo1" class="form-control" placeholder="7XXXXXXXXX">
+                                            <input type="text" id="txtContactNo1" class="form-control" placeholder="7XXXXXXXXX" required >
                                         </div>
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Secondary Phone<span style="color:red;">*</span></label>
-                                            <input type="text" id="txtSecondaryPhone1" class="form-control" placeholder="7XXXXXXXXX">
+                                            <input type="text" id="txtSecondaryPhone1" class="form-control" placeholder="7XXXXXXXXX" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -415,14 +424,14 @@
                                         </div>
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Place of Birth<span style="color:red;">*</span></label>
-                                            <input type="text" id="txtBirthPlace1" class="form-control">
+                                            <input type="text" id="txtBirthPlace1" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Country of Birth<span style="color:red;">*</span></label>
                                             <select class="form-control" id="ddlBirthCountry1">
-                                                <option value="0">---Select---</option>
+                                                <!--<option value="0">---Select---</option>
                                                 <option value="1">Afghanistan</option>
                                                 <option value="2">Aland Islands</option>
                                                 <option value="238">Algeria</option>
@@ -661,7 +670,8 @@
                                                 <option value="233">Virgin Islands of the United States</option>
                                                 <option value="235">Yemen</option>
                                                 <option value="236">Zambia</option>
-                                                <option value="237">Zimbabwe</option>
+                                                <option value="237">Zimbabwe</option>-->
+                                                <option value="200">Sri Lanka</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
@@ -676,13 +686,13 @@
                                     <div class="form-group row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 pl pr">
                                             <label class="col-form-label">Delivery Address<span style="color:red;">*</span></label>
-                                            <textarea id="txtAddress1" class="form-control"></textarea>
+                                            <textarea id="txtAddress1" class="form-control" required ></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6 col-md-6 col-lg-6 pl pr">
                                             <label class="col-form-label">Are you submitting the documents by yourself?<span style="color:red;">*</span></label>
-                                            <select class="form-control" id="ddlDelegate1" onchange="DelegateOption(this.value,1)">
+                                            <select class="form-control" id="ddlDelegate1" onchange="DelegateOption(this.value,1)" required>
                                                 <option value="0">-Select-</option>
                                                 <option value="1">Yes, Myself </option>
                                                 <option value="2">No, through a delegate</option>
@@ -712,31 +722,31 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 pl pr">
-                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_1" value="1_1" onchange="CheckCounts(1,1)"><label for="chk1_1">Birth Certificate</label></p>
+                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_1" value="1_1" onchange=""><label for="chk1_1">Birth Certificate</label></p>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 pl pr">
-                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_2" value="1_2" onchange="CheckCounts(1,2)"><label for="chk1_2">Marriage Certificate</label></p>
+                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_2" value="1_2" onchange=""><label for="chk1_2">Marriage Certificate</label></p>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 pl pr">
-                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_3" value="1_3" onchange="CheckCounts(1,3)"><label for="chk1_3">Death Certificate</label></p>
+                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_3" value="1_3" onchange=""><label for="chk1_3">Death Certificate</label></p>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 pl pr">
-                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_4" value="1_4" onchange="CheckCounts(1,4)"><label for="chk1_4">Police Certificate</label></p>
+                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_4" value="1_4" onchange=""><label for="chk1_4">Police Certificate</label></p>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 pl pr">
-                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_5" value="1_5" onchange="CheckCounts(1,5)"><label for="chk1_5">Divorce (Nisi + Absolute Decrees)</label></p>
+                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_5" value="1_5" onchange=""><label for="chk1_5">Divorce (Nisi + Absolute Decrees)</label></p>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 pl pr">
-                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_6" value="1_6" onchange="CheckCounts(1,6)"><label for="chk1_6">Education Certificate (O/L)</label></p>
+                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_6" value="1_6" onchange=""><label for="chk1_6">Education Certificate (O/L)</label></p>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 pl pr">
-                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_7" value="1_7" onchange="CheckCounts(1,7)"><label for="chk1_7">Education Certificate (A/L)</label></p>
+                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_7" value="1_7" onchange=""><label for="chk1_7">Education Certificate (A/L)</label></p>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 pl pr">
-                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_8" value="1_8" onchange="CheckCounts(1,8)"><label for="chk1_8">University Degree (Certificate + Transcript)</label></p>
+                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_8" value="1_8" onchange=""><label for="chk1_8">University Degree (Certificate + Transcript)</label></p>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 pl pr">
-                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_9" value="1_9" onchange="CheckCounts(1,9)"><label for="chk1_9">Power of Attorney</label></p>
+                                            <p class="d-inline-block"><input type="checkbox" name="documentsType1" id="chk1_9" value="1_9" onchange=""><label for="chk1_9">Power of Attorney</label></p>
                                         </div>
                                     </div>
                                 </div>
@@ -745,7 +755,7 @@
                     </div>
                     <div class="form-group row mt-4">
                         <div class="col-sm-12 text-center">
-                            <input type="button" name="submitBtn" id="submitBtn" value="Generate & copy" class="btn1 btn-dark">
+                            <input type="submit" name="submitBtn" id="submitBtn" value="Generate & copy" class="btn1 btn-dark">
                         </div>
                     </div>
                 </form>
@@ -753,7 +763,317 @@
         </div>
     </div>
 </div>
-
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+            <span class="text-muted">
+                &copy; 2025 DT. All rights reserved.
+            </span>
+        </div>
+    </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
+<script src="https://unpkg.com/imask"></script>
 </body>
 </html>
+<script>
+    // --- IMask.js Initialization for Date Fields ---
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Apply mask to Date Of Birth field
+        const dobInput = document.getElementById('txtDOB1');
+        if (dobInput) {
+            IMask(dobInput, {
+                mask: 'YYYY-MM-DD',
+                lazy: false, // Ensures the mask is always visible
+                blocks: {
+                    YYYY: {
+                        mask: IMask.MaskedRange,
+                        from: 1900, // Adjust min year as needed
+                        to: new Date().getFullYear(), // Current year (2025)
+                    },
+                    MM: {
+                        mask: IMask.MaskedRange,
+                        from: 1,
+                        to: 12,
+                    },
+                    DD: {
+                        mask: IMask.MaskedRange,
+                        from: 1,
+                        to: 31,
+                    }
+                }
+            });
+        }
+
+        // Apply mask to Passport Expiry Date field
+        const doeInput = document.getElementById('txtDOE1');
+        if (doeInput) {
+            IMask(doeInput, {
+                mask: 'YYYY-MM-DD',
+                lazy: false, // Ensures the mask is always visible
+                blocks: {
+                    YYYY: {
+                        mask: IMask.MaskedRange,
+                        from: new Date().getFullYear(), // Current year (2025)
+                        to: 2100, // Adjust max year as needed
+                    },
+                    MM: {
+                        mask: IMask.MaskedRange,
+                        from: 1,
+                        to: 12,
+                    },
+                    DD: {
+                        mask: IMask.MaskedRange,
+                        from: 1,
+                        to: 31,
+                    }
+                }
+            });
+        }
+
+    });
+
+  // --- Updated DelegateOption Function ---
+function DelegateOption(value, applicantNum) {
+
+    // Get the container for the delegate-related fields
+    const delegateNameDiv = document.getElementById(`divDelName${applicantNum}`); // Assuming this wraps Delegate Name
+    const delegatePassportDiv = document.getElementById(`isDelegate${applicantNum}`); // This seems to wrap both Passport & National ID
+
+    if (value === '1') { // "Yes, Myself" selected
+        if (delegateNameDiv) {
+            delegateNameDiv.style.display = 'none';
+            // Disable inputs within this div to prevent submission of hidden values
+            delegateNameDiv.querySelectorAll('input, select, textarea').forEach(input => {
+                input.disabled = true;
+            });
+        }
+        if (delegatePassportDiv) {
+            delegatePassportDiv.style.display = 'none';
+            // Disable inputs within this div
+            delegatePassportDiv.querySelectorAll('input, select, textarea').forEach(input => {
+                input.disabled = true;
+            });
+        }
+    } else if (value === '2') { // "No, through a delegate" selected
+        if (delegateNameDiv) {
+            delegateNameDiv.style.display = 'block';
+            // Enable inputs within this div
+            delegateNameDiv.querySelectorAll('input, select, textarea').forEach(input => {
+                input.disabled = false;
+            });
+        }
+        if (delegatePassportDiv) {
+            delegatePassportDiv.style.display = 'block';
+            // Enable inputs within this div
+            delegatePassportDiv.querySelectorAll('input, select, textarea').forEach(input => {
+                input.disabled = false;
+            });
+        }
+    } else { // Handle default or other values, e.g., "---Select---" (value '0')
+        if (delegateNameDiv) {
+            delegateNameDiv.style.display = 'none';
+            delegateNameDiv.querySelectorAll('input, select, textarea').forEach(input => {
+                input.disabled = true;
+            });
+        }
+        if (delegatePassportDiv) {
+            delegatePassportDiv.style.display = 'none';
+            delegatePassportDiv.querySelectorAll('input, select, textarea').forEach(input => {
+                input.disabled = true;
+            });
+        }
+    }
+}
+  
+
+ // --- Form Submission Handling with Required Field Validation ---
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Stop the default form submission (page reload)
+
+    let isValidForm = true; // Flag to track if the entire form is valid
+    const generalErrorMessage = document.getElementById('generalErrorMessage');
+
+    // Hide any previously shown general error message
+    if (generalErrorMessage) {
+        generalErrorMessage.style.display = 'none';
+    }
+
+    // Clear previous Bootstrap validation styles (e.g., red borders) and feedback messages
+    document.querySelectorAll('.is-invalid').forEach(el => {
+        el.classList.remove('is-invalid');
+    });
+    document.querySelectorAll('.invalid-feedback').forEach(el => {
+        el.remove(); // Remove dynamically added error messages
+    });
+
+    const formElements = event.target.elements;
+
+    // Loop through all form elements to check for required fields
+    for (let i = 0; i < formElements.length; i++) {
+        const element = formElements[i];
+
+        // Skip elements that are disabled, the submit button itself, or lack an ID/name
+        if (element.disabled || element.type === 'submit' || (!element.id && !element.name)) {
+            continue;
+        }
+
+        let isFieldValid = true;
+        let errorMessage = '';
+
+        // Check if the current element has the HTML 'required' attribute
+        if (element.hasAttribute('required')) {
+            if (element.tagName === 'SELECT') {
+                // For <select> elements, it's invalid if the default '0' value (or empty) is selected
+                if (element.value === '0' || element.value.trim() === '') {
+                    isFieldValid = false;
+                    errorMessage = 'Please select an option.';
+                }
+            } else if (element.type === 'checkbox' || element.type === 'radio') {
+                // For individual required checkboxes/radio buttons, it's invalid if unchecked
+                if (!element.checked) {
+                    isFieldValid = false;
+                    errorMessage = 'This field is required.';
+                }
+            } else {
+                // For text, number, date inputs, textareas, etc., it's invalid if empty after trimming whitespace
+                if (element.value.trim() === '') {
+                    isFieldValid = false;
+                    errorMessage = 'This field is required.';
+                }
+            }
+
+            // If a field is found to be invalid:
+            if (!isFieldValid) {
+                isValidForm = false; // Mark the overall form as invalid
+                element.classList.add('is-invalid'); // Add Bootstrap's class for visual feedback (e.g., red border)
+
+                // Create and append a specific error message below the invalid field
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.classList.add('invalid-feedback');
+                feedbackDiv.textContent = errorMessage;
+                
+                // Append the error message. Adjust if your input fields are wrapped differently (e.g., in an .input-group)
+                element.after(feedbackDiv);
+            }
+        }
+    }
+
+    // If the form is not valid after checking all fields:
+    if (!isValidForm) {
+        if (generalErrorMessage) {
+            generalErrorMessage.style.display = 'block'; // Show the general "Please fill all fields" message
+        }
+        // Scroll to the first invalid field for better user experience
+        const firstInvalid = document.querySelector('.is-invalid');
+        if (firstInvalid) {
+            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return; // Stop the form submission process here
+    }
+
+
+    // --- Form Data Collection Logic (using input 'id' as key) ---
+
+    // This part goes inside your 'submit' event listener,
+    // right after your validation checks have passed.
+
+    const form = event.target;
+    const formData = {}; // Object to store all collected form data (keys will be input IDs)
+    const displayData = []; // Array to store data for displaying
+    var codetxt = "javascript:(function() {";
+
+    // Iterate over all elements within the form
+    for (let i = 0; i < form.elements.length; i++) {
+        const element = form.elements[i];
+
+        // Skip elements that are disabled (hidden delegate fields),
+        // the submit button, or elements without an ID (which we'll use as key)
+        if (element.disabled || element.type === 'submit' || !element.id) {
+            continue;
+        }
+
+        const keyName = element.id; // Use the element's ID as the key for formData
+
+        // Collect the value based on the element type
+        if (element.type === 'checkbox') {
+            if (element.checked) {
+                if (!formData[keyName]) {
+                    formData[keyName] = [];
+                }
+                formData[keyName].push(element.value);
+                codetxt += `var ${keyName} = document.getElementById('${keyName}'); ${keyName}.checked = true; ${keyName}.dispatchEvent(new Event('change', { bubbles: true }));`;
+
+            }
+        } else if (element.type === 'radio') {
+            if (element.checked) {
+                formData[keyName] = element.value;
+            }
+        } else if (element.tagName === 'SELECT') {
+            if (element.selectedIndex > -1) {
+                // For selects, you might want the 'text' displayed to the user
+                // or the 'value' attribute. Using 'text' here for readability.
+                formData[keyName] = element.options[element.selectedIndex].value;
+                codetxt += `var ${keyName} = document.getElementById('${keyName}'); ${keyName}.value = '${element.options[element.selectedIndex].value}'; ${keyName}.dispatchEvent(new Event('change', { bubbles: true }));`;
+            }
+        } else {
+            // For all other input types (text, number, date, email, textarea, etc.), store the value
+            if (element.value.trim() !== '') { // Only store if value is not empty
+                formData[keyName] = element.value.trim();
+                codetxt += ` document.getElementById('${keyName}').value="${element.value.trim()}";`;
+            }
+        }
+        
+    }
+    codetxt +="})();";
+    //copy data
+    copyToClipboard(codetxt);
+
+    // --- If isValidForm is true, proceed with your success message and data display logic ---
+    // This is where your code to hide the form and show the success message/collected data would go.
+    // Example:
+    document.getElementById('divMain').style.display = 'none';
+    document.getElementById('resetFormDisplay').style.display = 'block';
+    document.getElementById('submissionResults').style.display = 'block';
+    document.getElementById('finalMsg').textContent = 'Your Data Generated & Copied Successfully!';
+    // --- End of Form Data Collection Logic ---
+});
+
+// --- Update to resetFormDisplay to clear validation states when the form is reset ---
+function resetFormDisplay() {
+    // Your existing reset logic for the form fields and visibility
+    document.getElementById('registrationForm').reset();
+    document.getElementById('divMain').style.display = 'block';
+    document.getElementById('submissionResults').style.display = 'none';
+    document.getElementById('formDataDisplay').textContent = '';
+    document.getElementById('finalMsg').textContent = '';
+
+    // Hide the general error message
+    const generalErrorMessage = document.getElementById('generalErrorMessage');
+    if (generalErrorMessage) {
+        generalErrorMessage.style.display = 'none';
+    }
+
+    // Clear all '.is-invalid' classes and remove any dynamically added '.invalid-feedback' messages
+    document.querySelectorAll('.is-invalid').forEach(el => {
+        el.classList.remove('is-invalid');
+    });
+    document.querySelectorAll('.invalid-feedback').forEach(el => {
+        el.remove();
+    });
+
+}
+
+// Create an asynchronous function to handle the copy operation
+async function copyToClipboard(textToCopy) {
+    
+    try {
+        // Use the Clipboard API's writeText method to copy the variable's value
+        await navigator.clipboard.writeText(textToCopy);
+        console.log('Text copied to clipboard successfully!');
+    } catch (err) {
+        // Handle potential errors, such as permission issues
+        console.error('Failed to copy text: ', err);
+        return false;
+    }
+}
+</script>
